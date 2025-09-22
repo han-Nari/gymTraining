@@ -77,7 +77,7 @@ export default function Header() {
           className="md:hidden focus:outline-none"
         >
           <i
-            className={`fa-solid fa-bars text-2xl transition-colors duration-300 ${
+            className={`fa-solid fa-bars text-2xl transition-colors duration-300 cursor-pointer ${
               scrolled ? "text-[#232D39]" : "text-white"
             }`}
           ></i>
