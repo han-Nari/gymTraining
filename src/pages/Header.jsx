@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null); // 👈 ref for outside click
 
   const links = [
     { id: "home", label: "Home", href: "#home" },
@@ -41,6 +42,19 @@ export default function Header() {
     return () => observer.disconnect();
   }, [links]);
 
+  // 🔹 Close nav when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
   return (
     <header
       className={`shadow-sm fixed w-full z-999 transition-colors duration-300 ${
@@ -71,6 +85,7 @@ export default function Header() {
 
         {/* Nav */}
         <nav
+          ref={navRef} // 👈 for outside click
           className={`font-sans text-center absolute inset-0 top-20 px-5 md:static md:block transition-all duration-300 transform
     ${
       isOpen
@@ -92,7 +107,7 @@ export default function Header() {
                 <a
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`transition-colors duration-300 ${
+                  className={`transition-colors duration-300 hover:text-[#f96d00] ${
                     active === link.id
                       ? "text-[#f96d00]"
                       : scrolled
