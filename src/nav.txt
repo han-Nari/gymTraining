@@ -1,0 +1,60 @@
+import React, { useState, useEffect } from "react";
+import "./App.css";
+
+export default function Navbar() {
+  const navItems = ["home", "about", "services"];
+  const [active, setActive] = useState("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY + window.innerHeight / 2; // middle of viewport
+      navItems.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          if (
+            scrollY >= section.offsetTop &&
+            scrollY < section.offsetTop + section.offsetHeight
+          ) {
+            setActive(id);
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
+        <ul className="flex justify-center gap-6 py-4">
+          {navItems.map((item) => (
+            <li
+              key={item}
+              className={`capitalize ${
+                active === item ? "text-blue-500 font-bold" : "text-black"
+              }`}
+            >
+              <a href={`#${item}`}>{item}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {navItems.map((item, i) => (
+        <section
+          key={item}
+          id={item}
+          className={`h-screen flex items-center justify-center text-4xl ${
+            i % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
+          }`}
+        >
+          {item}
+        </section>
+      ))}
+    </>
+  );
+}

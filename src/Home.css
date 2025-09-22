@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "tailwindcss";
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer components {
+  /* Body width */
+  .wrapper {
+    @apply mx-auto w-[min(1100px,80%)];
+  }
+
+  .wrapper-second {
+    @apply mx-auto w-[min(1100px,95%)];
+  }
+
+  /* For Nav */
+  .flexx {
+    @apply flex justify-between items-center min-h-[5rem];
+  }
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Styles */
+/* ED563B - text color */
+/* 008EFF - text link color */
+/* FFFFFF - bg color */
+/* 232D39 - heading color */
+/* 767676 - normal text */
